@@ -3,11 +3,11 @@ from flask import Flask
 ## __name__ gives each file a unique name 
 app = Flask(__name__)
 
-@app.route('/', method=['POST'])
+@app.route('/', methods=['POST'])
 def create_store():
     return { "response": "Store created" } 
 
-@app.route('/store/<string:name>', method=['GET'])
+@app.route('/store/<string:name>')
 def get_store():
     return { "response": "Get Store" + name } 
 
