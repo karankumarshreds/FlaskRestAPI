@@ -7,14 +7,14 @@ app = Flask(__name__)
 ## json cannot be a list 
 stores = [
     {
-        'name': 'store 1',
+        'name': 'store1',
         'items': [
             { 'name': 'item 1' },
             { 'name': 'item 2' },
         ]
     },
     {
-        'name': 'store 2',
+        'name': 'store2',
         'items': [
             { 'name': 'item 1' },
             { 'name': 'item 2' },
@@ -35,8 +35,13 @@ def create_store():
     return jsonify(new_store)
 
 @app.route('/store/<string:name>')
-def get_store():
-    return { "response": "Get Store" + name } 
+def get_store(name):
+    ## find the store by the name 
+    store = [store for store in stores if store['name'] == name]
+    if len(store) < 1:
+        return { "error": "No store found" }
+    ## otherwise return an error message 
+    return jsonify(store[0])
 
 @app.route('/store')
 def get_stores():
