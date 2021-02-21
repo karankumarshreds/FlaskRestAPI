@@ -50,11 +50,17 @@ def get_stores():
     return jsonify({ 'stores': stores })
 
 @app.route('/store/<string:name>/item', methods=['POST'])
-def create_item():
-    pass 
+def create_item(name):
+    ## find the store 
+    pass
 
 @app.route('/store/<string:name>/item')
-def get_item():
-    pass
+def get_item(name):
+    ## find the store by the name 
+    store = [store for store in stores if store['name'] == name]
+    if len(store) < 1:
+        return { "error": "No store found" }
+    ## return all the items in the store 
+    return jsonify({ 'items': store[0]['items'] })
 
 app.run(port=5000)
