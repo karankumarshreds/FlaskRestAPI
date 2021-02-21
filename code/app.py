@@ -14,7 +14,7 @@ class Item(Resource):
         item = [ item for item in items if item['name'] == name ]
         if len(item) < 1:
             return 
-        return { "item": name }
+        return item[0]
     
     ## create a specific item
     def post(self, name):
