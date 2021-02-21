@@ -35,7 +35,7 @@ def get_store():
 def get_stores():
     ## change the list to dictionary before making json
     ## this is because the json cannot be a list 
-    return { "response": jsonify({ 'stores': stores }) }
+    return jsonify({ 'stores': stores })
 
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_item():
