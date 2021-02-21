@@ -13,14 +13,14 @@ class Item(Resource):
     def get(self, name):
         item = [ item for item in items if item['name'] == name ]
         if len(item) < 1:
-            return 
+            return { 'item': 'none' }, 404
         return item[0]
     
     ## create a specific item
     def post(self, name):
         item = { 'name': name, 'price': 12 }
         items.append(item)
-        return item
+        return item, 201
     
 api.add_resource(Item, '/items/<string:name>')
 
