@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request 
 from flask_restful import Resource, Api 
 
 app = Flask(__name__)
@@ -11,16 +11,23 @@ items = []
 class Item(Resource):
     ## get a specific item
     def get(self, name):
-        item = [ item for item in items if item['name'] == name ]
-        if len(item) < 1:
-            return { 'item': 'none' }, 404
-        return item[0]
+        ## filter does not return an array
+        ## Next gets the first match or None 
+        item = next(filter(lambda x: x['name'] == name, items), None)
+        if item is None: 
+            return {"message": "Not found error"}, 404 
+        return item
     
     ## create a specific item
     def post(self, name):
-        item = { 'name': name, 'price': 12 }
+        item = next(filter(lambda x: x['name'] == name, items), None)
+        if item:
+            return {"message": "Item already exists"}, 400
+        price = request.get_json()['price']
+        item = { 'name': name, 'price': price }
         items.append(item)
         return item, 201
+
     
 class ItemList(Resource):
     ## get item list 
