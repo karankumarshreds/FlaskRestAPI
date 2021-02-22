@@ -23,7 +23,7 @@ jwt = JWT(app, authenticate, identity)
 items = []
 
 class Item(Resource):
-    ## get a specific item
+    # returns access_token if validated
     @jwt_required()
     def get(self, name):
         ## filter does not return an array

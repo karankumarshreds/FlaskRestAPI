@@ -16,7 +16,7 @@ userid_mapping = { u.id: u for u in users }
 
 ## function to check the password 
 def authenticate(username, password):
-    user = username_mapping.get(username, None, None)
+    user = username_mapping.get(username, None)
     if user and user.password == password:
         return user
 
