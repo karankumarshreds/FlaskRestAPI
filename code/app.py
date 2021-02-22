@@ -1,15 +1,30 @@
 from flask import Flask, request 
 from flask_restful import Resource, Api
+from flask_jwt import JWT, jwt_required 
+from security import authenticate, identity
+
 app = Flask(__name__)
 api = Api(app)
 
-## api works with resources 
+app.secret_key = 'We3$//kjh'
+
+"""
+JWT creates a new route /auth to which we send 
+a username and a password and JWT sends it to 
+the authenticate function. 
+It returns the user and sends it to the identity
+funciton, which returns the real user from the 
+database
+
+"""
+jwt = JWT(app, authenticate, identity)
 
 ## dummy data
 items = []
 
 class Item(Resource):
     ## get a specific item
+    @jwt_required()
     def get(self, name):
         ## filter does not return an array
         ## Next gets the first match or None 
