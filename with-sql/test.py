@@ -12,10 +12,18 @@ cursor = connection.cursor()
 create_table = "CREATE TABLE users (id int, username text, password text)"
 cursor.execute(create_table)
 
-## STORE DATA
+## INSERT SINGLE
 user = (1, "Karan", "asdf")
 insert_query = F"INSERT INTO users VALUES (?, ?, ?)"
 cursor.execute(insert_query, user)
+
+## INSERT MANY
+users = [
+    (1, "Karan", "asdf"),
+    (2, "Kajol", "asdf"),
+    (3, "Luke", "asdf")
+]
+cursor.executemany(insert_query, users)
 
 connection.commit()
 connection.close()
