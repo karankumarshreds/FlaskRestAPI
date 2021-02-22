@@ -21,6 +21,7 @@ class Item(Resource):
     ## create a specific item
     def post(self, name):
         item = next(filter(lambda x: x['name'] == name, items), None)
+        ## if item already exists
         if item:
             return {"message": "Item already exists"}, 400
         price = request.get_json()['price']
