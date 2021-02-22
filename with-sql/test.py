@@ -16,7 +16,6 @@ cursor.execute(create_table)
 user = (1, "Karan", "asdf")
 insert_query = F"INSERT INTO users VALUES (?, ?, ?)"
 cursor.execute(insert_query, user)
-
 ## INSERT MANY
 users = [
     (1, "Karan", "asdf"),
@@ -24,6 +23,11 @@ users = [
     (3, "Luke", "asdf")
 ]
 cursor.executemany(insert_query, users)
+
+## RETRIEVE DATA 
+select_query = "SELECT * FROM users"
+for row in cursor.execute(select_query):
+    print(row)
 
 connection.commit()
 connection.close()
