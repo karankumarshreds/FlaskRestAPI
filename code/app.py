@@ -43,7 +43,13 @@ class Item(Resource):
         item = { 'name': name, 'price': price }
         items.append(item)
         return item, 201
-
+    
+    @jwt_required()
+    def delete(self, name):
+        global items
+        _items = list(filter(lambda x: x['name'] != name, items))
+        items = _items 
+        return items
     
 class ItemList(Resource):
     ## get item list
