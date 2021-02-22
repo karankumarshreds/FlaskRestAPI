@@ -23,6 +23,17 @@ jwt = JWT(app, authenticate, identity)
 items = []
 
 class Item(Resource):
+
+    # data = request.get_json()
+    ## body validation
+    parser = reqparse.RequestParser()
+    parser.add_argument(
+        'price', 
+        type=float, 
+        required=True, 
+        help="This field cannot be left blank" 
+    )
+
     # returns access_token if validated
     @jwt_required()
     def get(self, name):
@@ -35,12 +46,12 @@ class Item(Resource):
     
     ## create a specific item
     def post(self, name):
+        data = Item.parser.parse_args()
         item = next(filter(lambda x: x['name'] == name, items), None)
         ## if item already exists
         if item:
             return {"message": "Item already exists"}, 400
-        price = request.get_json()['price']
-        item = { 'name': name, 'price': price }
+        item = { 'name': name, 'price': data['price'] }
         items.append(item)
         return item, 201
     
@@ -52,16 +63,7 @@ class Item(Resource):
         return items
 
     def put(self, name):
-        # data = request.get_json()
-        ## body validation
-        parser = reqparse.RequestParser()
-        parser.add_argument(
-            'price', 
-            type=float, 
-            required=True, 
-            help="This field cannot be left blank" 
-        )
-        data = parser.parse_args()
+        data = Item.parser.parse_args()
         item = next(filter(lambda x: x['name'] == name, items), None)
         if item is None:
             item = { 'name': name, 'price': data['price'] }
