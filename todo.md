@@ -1,4 +1,4 @@
-# things that needs to be covered
+# things that need to be covered
 
 ## Error Handling
 
