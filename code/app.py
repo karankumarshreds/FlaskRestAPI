@@ -1,12 +1,21 @@
 from flask import Flask, request 
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required 
+## custom methods 
 from security import authenticate, identity
+
+from dotenv import load_dotenv
+import os 
+
+load_dotenv()
+secret_key = os.getenv("SECRET_KEY")
+# print(f"My name is {name}")
+
 
 app = Flask(__name__)
 api = Api(app)
 
-app.secret_key = 'We3$//kjh'
+app.secret_key = secret_key
 
 """
 JWT creates a new route /auth to which we send 
