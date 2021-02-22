@@ -23,4 +23,10 @@ userid_mapping = {
 }
 
 def authenticate(username, password):
-    user = username_mapping.get(username, None)
+    user = username_mapping.get(username, None, None)
+    if user and user.password == password:
+        return user
+
+def identify(payload):
+    user_id = payload['identity']
+    return userid_mapping.get(user_id, None)
