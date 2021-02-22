@@ -1,8 +1,8 @@
 from flask import Flask, request 
-from flask_restful import Resource, Api 
-
+from flask_restful import Resource, Api
 app = Flask(__name__)
 api = Api(app)
+
 ## api works with resources 
 
 ## dummy data
@@ -31,7 +31,7 @@ class Item(Resource):
 
     
 class ItemList(Resource):
-    ## get item list 
+    ## get item list
     def get(self):
         return items
 
