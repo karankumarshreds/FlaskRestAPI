@@ -46,11 +46,11 @@ class Item(Resource):
     
     ## create a specific item
     def post(self, name):
-        data = Item.parser.parse_args()
         item = next(filter(lambda x: x['name'] == name, items), None)
         ## if item already exists
         if item:
             return {"message": "Item already exists"}, 400
+        data = Item.parser.parse_args()
         item = { 'name': name, 'price': data['price'] }
         items.append(item)
         return item, 201
@@ -63,8 +63,8 @@ class Item(Resource):
         return items
 
     def put(self, name):
-        data = Item.parser.parse_args()
         item = next(filter(lambda x: x['name'] == name, items), None)
+        data = Item.parser.parse_args()
         if item is None:
             item = { 'name': name, 'price': data['price'] }
             items.append(item)
