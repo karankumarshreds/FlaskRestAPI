@@ -14,7 +14,7 @@ cursor.execute(create_table)
 
 ## INSERT SINGLE
 user = (1, "Karan", "asdf")
-insert_query = F"INSERT INTO users VALUES (?, ?, ?)"
+insert_query = "INSERT INTO users VALUES (?, ?, ?)"
 cursor.execute(insert_query, user)
 ## INSERT MANY
 users = [
