@@ -9,7 +9,7 @@ class User:
         self.username = username
         self.password = password
 
-    @classmethod
+    @classmethod #cls === User 
     def find_by_username(cls, username):
         connection = sqlite3.connect(SQL_URI)
         cursor = connection.cursor()
@@ -26,4 +26,19 @@ class User:
             user = None
         connection.close()
         return user
+
+    @classmethod
+    def find_by_id(cls, _id):
+        connection = sqlite3.connect(SQL_URI)
+        cursor = connection.cursor()
+        query = "SELECT * from users WHERE id=?"
+        result = cursor.execute(query, (_id,))
+        row = result.fetchone()
+        if row: 
+            user = cls(*row)
+        else: 
+            user = None
+        connection.close()
+        return user 
+
 
