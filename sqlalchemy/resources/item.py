@@ -6,7 +6,6 @@ __all__ = [
     'ItemList'
 ]
 
-
 ## dummy data
 items = []
 

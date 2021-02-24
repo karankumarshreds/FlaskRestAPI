@@ -3,6 +3,9 @@ import os
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 
+__all__ = [
+    'UserRegister'
+]
 
 class UserRegister(Resource):
     parser = reqparse.RequestParser()

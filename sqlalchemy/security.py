@@ -1,4 +1,4 @@
-from models.user import User
+from models.user import UserModel as User
 
 __all__ = [
     'authenticate',

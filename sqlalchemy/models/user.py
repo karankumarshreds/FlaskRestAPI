@@ -3,13 +3,13 @@ import os
 
 SQL_URI = os.getenv("SQL_URI")
 
-class User:
+class UserModel:
     def __init__(self, _id, username, password):
         self.id = _id
         self.username = username
         self.password = password
 
-    @classmethod #cls === User 
+    @classmethod #cls === UserModel 
     def find_by_username(cls, username):
         connection = sqlite3.connect(SQL_URI)
         cursor = connection.cursor()
