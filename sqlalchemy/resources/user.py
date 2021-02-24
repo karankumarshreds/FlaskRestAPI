@@ -1,6 +1,7 @@
 import sqlite3
 import os 
 from flask_restful import Resource, reqparse
+from flask_jwt import jwt_required
 
 SQL_URI = os.getenv("SQL_URI")
 
