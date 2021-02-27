@@ -5,6 +5,10 @@ import datetime
 from . import db 
 from . import bcrypt 
 
+## models 
+from .BogModel import BlogModel
+
+
 class UserModal(db.Model): 
     '''
     User Model
@@ -19,6 +23,8 @@ class UserModal(db.Model):
     password = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    ## making one to many relationship with blogs 
+    blogposts = db.Relationship('BlogModel', backref='users', lazy=True)
 
     ## util methods
     def __generate_hash(self, password):
@@ -62,7 +68,14 @@ class UserModal(db.Model):
         return '<id {}>'.format(self.id)
 
 
-
+class UserSchema(Schema): 
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+    email = fields.Email(required=True)
+    password = fields.Str(required=True)
+    created_at = fields.DateTime(dump_only=True)
+    modified_at = fields.DateTime(dump_only=True)
+    blogposts = fields.Nested(BlogpostSchema, many=True)
 
 '''
     ## pointers
