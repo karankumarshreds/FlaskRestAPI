@@ -1,24 +1,14 @@
-import os
+import flask from Flask 
+from .config import app_config 
 
-class Development(object):
-    """
-    Development environment configuration
-    """
-    DEBUG = True
-    TESTING = False
-    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+def create_app(env_name):
+    
+    ## app initializaion
+    app = Flask(__name__)
+    app.config.from_object(app_config[env_name])
 
-class Production(object):
-    """
-    Production environment configurations
-    """
-    DEBUG = False
-    TESTING = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
-    JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+    @app.route("/", methods=["GET"])
+    def index():
+        return "Welcome to Flask App"
 
-app_config = {
-    'development': Development,
-    'production': Production,
-}
+    return app
