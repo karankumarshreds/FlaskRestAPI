@@ -20,6 +20,12 @@ class UserModal(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
+    ## util methods
+    def __generate_hash(self, password):
+        return bcrypt.generate_password_hash(password, rounds=10).decode("utf-8")
+    def validate_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
+
     ## class constructor
     def __init__(self, data):
         self.name = data.get('name')
