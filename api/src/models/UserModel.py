@@ -52,3 +52,13 @@ class UserModal(db.Model):
 
     def __repr(self):
         return '<id {}>'.format(self.id)
+
+
+
+
+'''
+    ## pointers
+
+    - We imported db instance from __init__.py
+    - Our Model class inherited from the db.Model 
+'''
